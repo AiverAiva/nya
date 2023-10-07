@@ -8,6 +8,7 @@ import datetime
 import sys
 sys.path.append("..")
 import utilties.embeds as embeds
+from utilties.multicog import add_to_group
 # from utilties import embeds
 # import handlers.embeds as embeds
 
@@ -16,8 +17,8 @@ bot = discord.Bot()
 class item(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
-    @bot.slash_command(name = "item", description = "check the stats of an item")
+    @add_to_group('wynncraft')
+    @discord.slash_command(name = "item", description = "check the stats of an item")
     async def item(self, ctx, name :Option(str, "The item name you want to search for.")):
         query = requests.get(f"https://api.wynncraft.com/public_api.php?action=itemDB&search={name}").json()
         items=list(query["items"])

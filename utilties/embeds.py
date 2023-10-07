@@ -9,8 +9,8 @@ def progress_bar(percent: int) -> str:
 
     return bar.ljust(10, "⬛")
 
-def embedGroupGuildInfo(guildData):
-    onlinePlayer = requests.getGuildOnlinePlayer(guildData)
+async def embedGroupGuildInfo(guildData):
+    onlinePlayer = await requests.getGuildOnlinePlayer(guildData)
     t = "```\n"
     if not onlinePlayer:
         t+="No player online"
@@ -32,10 +32,10 @@ def embedGroupGuildInfo(guildData):
     ]
     return embedGroup
 
-def embedGroupInactiveList(guildData):
+async def embedGroupInactiveList(guildData):
     embedGroup = []
 
-    inactivePlayer = requests.getInactivePlayer(guildData)
+    inactivePlayer = await requests.getInactivePlayer(guildData)
     composite_list = [inactivePlayer[x:x+20] for x in range(0, len(inactivePlayer),20)]
 
     for i in composite_list:
@@ -50,10 +50,10 @@ def embedGroupInactiveList(guildData):
 
     return embedGroup
 
-def embedGroupLeaderboard(option, guild):
+async def embedGroupLeaderboard(option, guild):
     embedGroup = []
     c=1
-    leaderboard = requests.getLeaderboard(option, guild)
+    leaderboard = await requests.getLeaderboard(option, guild)
     composite_list = [leaderboard[x:x+20] for x in range(0, len(leaderboard),20)]
 
     for i in composite_list:
