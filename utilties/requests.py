@@ -15,7 +15,7 @@ async def fetch_data(url):
               print(f'Error: {response.status}')
               return None
 
-async def fetch_github_json(url):
+async def fetch_raw_data(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             if response.status == 200:
@@ -26,18 +26,12 @@ async def fetch_github_json(url):
                 return None
                   
 async def getGuild(guild):
-    return await fetch_data(f'https://api.wynncraft.com/public_api.php?action=guildStats&command={guild}')
-    # r = requests.get(f'http://avicia.ga/api/tag/?tag={guild}').json()
-    # if r == "null":
-    #     a = requests.get(f'https://api.wynncraft.com/public_api.php?action=guildStats&command={guild}').json()
-    #     if "error" in a:
-    #         return ""
-    #     else:
-    #         return a
-    # elif isinstance(r, str) is False: 
-    #     return requests.get(f'https://api.wynncraft.com/public_api.php?action=guildStats&command={r[list(r)[0]]}').json()
-    # else:
-    #     return requests.get(f'https://api.wynncraft.com/public_api.php?action=guildStats&command={r}').json()
+  r = await fetch_raw_data(f'https://api.weikuwu.me/wynncraft/guildName/{guild}')
+  if 'error' in r:
+    return ""
+  else:
+    return await fetch_data(f'https://api.wynncraft.com/public_api.php?action=guildStats&command={r["guildName"]}')
+    
 
 async def getGuildOnlinePlayer(guildData):
     r = await fetch_data("https://api.wynncraft.com/public_api.php?action=onlinePlayers")
@@ -79,7 +73,7 @@ async def getLeaderboard(option, guild):
     def sortByKey(e):
             return e[option]
     leaderboard = []
-    r = await fetch_github_json("https://raw.githubusercontent.com/AiverAiva/wynncraft-data/master/datafiles/playerdata.json")
+    r = await fetch_raw_data("https://raw.githubusercontent.com/AiverAiva/wynncraft-data/master/datafiles/playerdata.json")
     for i in r:
         try:
             if guild != "":
