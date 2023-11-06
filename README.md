@@ -40,7 +40,7 @@
   <p align="center">
     A multi-purpose discord bot for gaming, chatting, server managing!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Invite the bot »</strong></a>
+    <a href="https://discord.com/api/oauth2/authorize?client_id=828644864505413672&permissions=962073054272&scope=bot"><strong>Invite the bot »</strong></a>
     <br />
     <br />
     <a href="https://discord.gg/kcHfpfnYzE">Service Server</a>
