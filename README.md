@@ -138,7 +138,7 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    git clone https://github.com/AiverAiva/nya.git
    ```
-1. Install NPM packages
+1. Install python packages
    ```sh
    pip install -r requirements.txt
    ```
