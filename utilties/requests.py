@@ -60,7 +60,7 @@ async def getInactivePlayer(guildData):
 
     players= []
     try:
-        gd = await fetch_data(f'https://raw.githubusercontent.com/AiverAiva/wynncraft-data/master/guilds/{guildData["name"]}.json')
+        gd = await fetch_raw_data(f'https://raw.githubusercontent.com/AiverAiva/wynncraft-data/master/guilds/{guildData["name"]}.json')
         for i in gd["members"]:
             players.append({'name': i, 'lastSeen': gd["members"][i]["lastSeen"]})
         players.sort(key=sortByKey)
