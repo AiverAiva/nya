@@ -3,28 +3,31 @@ import os
 from discord.ext import commands, tasks
 from itertools import cycle
 from threading import Thread
-from flask import Flask
 from utilties.multicog import apply_multicog
+from dotenv import load_dotenv
+load_dotenv()
 
-token = os.getenv('TOKEN')
+devMode = os.getenv('DEVMODE') 
+token = os.getenv('TOKEN') 
 
-app = Flask(__name__)
+# flaskh app for continuous repl.it run
+if devMode != "TRUE":
+  from flask import Flask
+  app = Flask(__name__)
+  @app.route('/')
+  def hello():
+      return 'Your Bot Is Ready'
 
-
-
-@app.route('/')
-def hello():
-    return 'Your Bot Is Ready'
-
-def run():
-  app.run(host="0.0.0.0", port=8000)
+  def run():
+    app.run(host="0.0.0.0", port=8000)
+    
+  if __name__ == '__main__':
+    server = Thread(target=run)
+    server.start()
   
-if __name__ == '__main__':
-  server = Thread(target=run)
-  server.start()
-
+# start of discord stuff
 intents = discord.Intents.default()
-bot=commands.Bot(command_prefix="/", intents=intents)
+bot = commands.Bot(command_prefix="/", intents=intents)
 status = cycle(['You <3'])
 
 @bot.event

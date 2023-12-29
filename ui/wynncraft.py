@@ -1,6 +1,9 @@
 import discord
 import datetime
-from . import colors, requests, formatter, emoji
+
+import sys
+sys.path.append("..")
+from utilties import colors, requests, formatter, emoji
 
 def overall(data):
     t=f'Playtime: {round(int(data["meta"]["playtime"])*4.7/60)}hr\nFirst Join: <t:{formatter.getTime(data["meta"]["firstJoin"])}:R>\nLast Seen: <t:{formatter.getTime(data["meta"]["lastJoin"])}:R>\n'
