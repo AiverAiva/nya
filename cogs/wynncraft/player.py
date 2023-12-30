@@ -14,14 +14,14 @@ from utilties.multicog import add_to_group
 
 bot = discord.Bot()
 
-
 class player(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @add_to_group('wynncraft')
     @discord.slash_command(name = "player", description = "Check player stats.")
-    async def player(self, ctx, name :Option(str, "The name of the player you want to search for.")):
+    async def player(self, ctx, name :Option(str, "The name of the player you want to search for.", required=False)):
+        print(name)        
         pd = requests.get(f"https://api.wynncraft.com/v2/player/{name}/stats").json()
         try:
             data = pd["data"][0]

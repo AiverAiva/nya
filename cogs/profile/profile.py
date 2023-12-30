@@ -14,8 +14,10 @@ class profile(commands.Cog):
     
     @discord.slash_command(name = "profile", description = "show the profile", pass_context=True)
     async def player(self, ctx):
-        profile = Database.getUserData(ctx.author.id)
+        profile = await Database.getUserData(ctx.author.id)
         await ctx.respond(content=profile)
-
+        
+        
+        
 def setup(bot):
     bot.add_cog(profile(bot))
