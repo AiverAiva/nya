@@ -11,6 +11,7 @@ sys.path.append("..")
 import utilties.embeds as embeds
 import ui.wynncraft as wynncraft
 from utilties.multicog import add_to_group
+from utilties.database import getUserData
 
 bot = discord.Bot()
 
@@ -21,12 +22,19 @@ class player(commands.Cog):
     @add_to_group('wynncraft')
     @discord.slash_command(name = "player", description = "Check player stats.")
     async def player(self, ctx, name :Option(str, "The name of the player you want to search for.", required=False)):
-        print(name)        
+        if name is None:
+            userdata = await getUserData(ctx.author.id)
+            print(userdata)
+            dbname = userdata['wynncraft']
+            if dbname is None:
+                return await ctx.respond(embed=embeds.Error(f"You don't have an account connected to the bot, use </wynncraft link:1160063178907062342> to link"))
+            else:
+                name = dbname
         pd = requests.get(f"https://api.wynncraft.com/v2/player/{name}/stats").json()
         try:
             data = pd["data"][0]
         except:
-            return await ctx.respond(embed=embeds.embedError(f"Unknown player `{name}`"))
+            return await ctx.respond(embed=embeds.Error(f"Unknown player `{name}`"))
     
         button_overall = Button(label="Overall", style=discord.ButtonStyle.blurple, emoji="👥")
         async def overall_callback(interaction):

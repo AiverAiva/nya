@@ -9,14 +9,16 @@ client = pymongo.MongoClient(database)# server.local_bind_port is assigned local
 db = client['nya']
 users = db['users']
 
-async def getUserData(id):
+async def initUserData(id):
     profile = users.find_one({"discordid": id})
     if profile is None:
-        users.insert_one({"discordid": id, "wynncraftName": None})
-        print("new user created")
+        users.insert_one({"discordid": id, "wynncraft": None})
+
+async def getUserData(id):
+    await initUserData(id)
     profile = users.find_one({"discordid": id}) 
     return profile
 
 async def updateUserData(query, newItem):
     newvalues = { "$set": newItem }
-    return await users.update_one(query, newvalues)
+    users.update_one(query, newvalues)

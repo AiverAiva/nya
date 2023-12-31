@@ -5,6 +5,7 @@ from discord.ext import commands
 from discord.commands import Option
 from utilties.multicog import add_to_group
 from utilties.requests import checkMinecraftName
+import utilties.embeds as embeds
 import utilties.database as Database
 import sys
 sys.path.append("..")
@@ -20,14 +21,15 @@ class link(commands.Cog):
     async def player(self, ctx, name :Option(str, "the name u want to link for", required=True)):
         
         checked = checkMinecraftName(name)
-
+        
         if checked is None:
-            await ctx.respond(content="please input a valid minecraft username")
+            await ctx.respond(embed=embeds.Error("Please input a valid Minecraft username."))
         else:
             query = {"discordid": ctx.author.id}    
-            newvalue = {"wynncraftName": checked}
-            Database.updateUserData(query, newvalue)
-            await ctx.respond(content="updated")
+            newvalue = {"wynncraft": checked}
+            await Database.initUserData(ctx.author.id)
+            await Database.updateUserData(query, newvalue)
+            await ctx.respond(embed=embeds.Success(f"Your Wynncraft account has been successfully updated to `{checked}`"))
 
 def setup(bot):
     bot.add_cog(link(bot))

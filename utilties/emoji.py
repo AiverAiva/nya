@@ -1,3 +1,5 @@
+wynnIcon = "<:wynncraft:1191134022038978590>"
+
 def getWynncraftDnREmoji(name):
     dict = {
         "Decrepit Sewers": "<:DecrepitSewersIconmin:1064502738697850900>", 

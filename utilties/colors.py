@@ -1,5 +1,5 @@
 main = 0x639c9c
-error = 0xfc8d8d
+
 joined = 0xBFFFC6
 left = 0xFF7A8A 
 
@@ -15,3 +15,6 @@ def getWynncraftRankColor(input):
         "CHAMPION": 0xf8ac38
     }
     return dict[input]
+
+error = 0xfc8d8d
+success = 0xAFE1AF #(Celadon)

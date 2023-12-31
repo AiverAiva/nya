@@ -87,9 +87,16 @@ def embedProgressBar():
     embed.set_image(url="attachment://image.png")
     return embed
 
-def embedError(text):
+def Error(text):
     embed=discord.Embed(
         description=text,
         color=colors.error
+    )
+    return embed
+
+def Success(text):
+    embed=discord.Embed(
+        description=text,
+        color=colors.success
     )
     return embed
