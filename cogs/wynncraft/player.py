@@ -49,7 +49,7 @@ class player(commands.Cog):
         button_classes = Button(label="Classes", style=discord.ButtonStyle.blurple, emoji="🗝️")
         async def classes_callback(interaction):
             chooseClass = ui.defaultPlayerEmbed(data)
-            chooseClass.description = "Choose a class to conitnue:",
+            chooseClass.description = "Choose a class to conitnue:"
             await interaction.response.edit_message(embed=chooseClass, view=selectMenuview)
         button_classes.callback = classes_callback
         
