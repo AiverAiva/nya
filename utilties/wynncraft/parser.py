@@ -1,16 +1,31 @@
 import datetime
-
+from . import lists
 
 def getTime(timestamp):
     element = datetime.datetime.strptime(timestamp,"%Y-%m-%dT%H:%M:%S.%fZ")
     return round(element.timestamp())+8*3600
 
-def wynncraftdungeonnraid(data):
-    list = [
-        "Decrepit Sewers", "Infested Pit", "Lost Sanctuary", "Underworld Crypt", "Sand-Swept Tomb", "Ice Barrows", "Undergrowth Ruins", "Galleon's Graveyard", "Fallen Factory", "Eldritch Outlook",
-        "Corrupted Decrepit Sewers", "Corrupted Infested Pit", "Corrupted Lost Sanctuary", "Corrupted Underworld Crypt", "Corrupted Sand-Swept Tomb", "Corrupted Ice Barrows", "Corrupted Undergrowth Ruins", "Corrupted Galleon's Graveyard", 
-        "Nest of the Grootslangs", "Orphion's Nexus of Light", "The Canyon Colossus", "The Nameless Anomaly"
-    ]
+def getRankTag(data):
+    return data["meta"]["tag"]["value"] if data['rank'] == "Player" else data['rank']
+
+def getUnformattedClass(name):
+    list = {
+        #normal class
+        "ASSASSIN": "Assassin",
+        "MAGE": "Mage",
+        "ARCHER": "Archer",
+        "SHAMAN": "Shaman",
+        "WARRIOR": "Warrior",
+        #ranked class
+        "DARKWIZARD": "Dark Wizard",
+        "HUNTER": "Hunter",
+        "KNIGHT": "Knight",
+        "NINJA": "Ninja",
+        "SKYSEER": "Skyseer"
+    }
+    return list[name]
+
+def parseDungeonRaidData(data, id=None):
     stats = {
         "dungeons": {},
         "raids": {}
@@ -19,7 +34,8 @@ def wynncraftdungeonnraid(data):
         "dungeons": {},
         "raids": {}
     }
-    for character in data["characters"]:
+
+    def iterate():
         for dungeon in data["characters"][character]["dungeons"]["list"]:
             try:
                 stats["dungeons"][dungeon["name"]] += dungeon["completed"]
@@ -31,7 +47,14 @@ def wynncraftdungeonnraid(data):
             except:
                 stats["raids"][raid["name"]] = raid["completed"]
 
-    for i in list:
+    if id is not None:
+        iterate()
+    else:
+        for character in data["characters"]:
+            iterate()
+        
+
+    for i in lists.lbList:
         if i in stats["dungeons"]:
             if i.startswith("Corrupted"):
                 if i.lstrip("Corrupted ") not in new_dictionary["dungeons"]: new_dictionary["dungeons"][i.lstrip("Corrupted ")] = {}
@@ -42,3 +65,4 @@ def wynncraftdungeonnraid(data):
         if i in stats["raids"]:
             new_dictionary["raids"][i] = stats["raids"][i]
     return new_dictionary
+

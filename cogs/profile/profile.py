@@ -1,10 +1,9 @@
 import discord
-import os
 from discord.ext import commands
 from discord.commands import Option
 import sys
 import utilties.database as Database
-import utilties.emoji as emoji
+import utilties.wynncraft.emoji as emoji
 sys.path.append("..")
 
 bot = discord.Bot()
