@@ -4,6 +4,7 @@ from discord.ext import commands, tasks
 from itertools import cycle
 from threading import Thread
 from utilties.multicog import apply_multicog
+from utilties.embeds import Error
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -34,6 +35,10 @@ status = cycle(['You <3'])
 async def on_ready():
   change_status.start()
   print('{0.user} wake the fuck up'.format(bot))
+
+@bot.event
+async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
+    await ctx.respond(embed=Error(f"`{error}`\n\n**__Please report this!__**\n**Service Server** https://discord.gg/kcHfpfnYzE\n**Contact Developer** @aiveraiva\n**Report Issues** https://github.com/AiverAiva/nya/issues/new/choose"))
 
 @tasks.loop(seconds=10)
 async def change_status():
