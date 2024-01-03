@@ -3,3 +3,5 @@ lbList = [
         "Corrupted Decrepit Sewers", "Corrupted Infested Pit", "Corrupted Lost Sanctuary", "Corrupted Underworld Crypt", "Corrupted Sand-Swept Tomb", "Corrupted Ice Barrows", "Corrupted Undergrowth Ruins", "Corrupted Galleon's Graveyard", 
         "Nest of the Grootslangs", "Orphion's Nexus of Light", "The Canyon Colossus", "The Nameless Anomaly"
     ] 
+
+profList = ["woodcutting", "farming", "mining", "fishing", "alchemism", "armouring", "cooking", "tailoring", "jeweling", "scribing", "weaponsmithing", "woodworking" ]
