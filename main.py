@@ -38,7 +38,7 @@ async def on_ready():
 
 @bot.event
 async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
-    await ctx.respond(embed=Error(f"`{error}`\n\n**__Please report this!__**\n**Service Server** https://discord.gg/kcHfpfnYzE\n**Contact Developer** @aiveraiva\n**Report Issues** https://github.com/AiverAiva/nya/issues/new/choose"))
+    await ctx.respond(embed=Error(f"Command: `/{ctx.command}`\nError: `{error}`\n\n**__Please report this!__**\n**Service Server** https://discord.gg/kcHfpfnYzE\n**Contact Developer** @aiveraiva\n**Report Issues** https://github.com/AiverAiva/nya/issues/new/choose"))
 
 @tasks.loop(seconds=10)
 async def change_status():
