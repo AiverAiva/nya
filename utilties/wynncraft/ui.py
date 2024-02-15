@@ -55,15 +55,15 @@ def classOverlay(data, id):
     embed.add_field(name="Professions", value=professions, inline=True)
 
     dungeonandraidstats = parser.parseDungeonRaidData(data, id)
+
     completedDungeons = "This player haven't completed any dungeon yet." if len(dungeonandraidstats["dungeons"]) == 0 else ""
     embed.add_field(name=f'Dungeons', value=completedDungeons, inline=False)
     for i in dungeonandraidstats["dungeons"]:
         valuet = ""
         if "normal" in dungeonandraidstats["dungeons"][i]: valuet += f'<:normaldungeonkey:1064531252729872456> {dungeonandraidstats["dungeons"][i]["normal"]}'
         if "corrupted" in dungeonandraidstats["dungeons"][i]: valuet += f'<:corrupteddungeonkey:1064531265681895424> {dungeonandraidstats["dungeons"][i]["corrupted"]}'
-        completedDungeons += f"{emoji.getWynnDungeonRaidEmoji(i)} **{i}** " + valuet
+        embed.add_field(name=f"{emoji.getWynnDungeonRaidEmoji(i)} {i}", value=valuet, inline=True)
         
-    embed.add_field(name=f"", value=valuet, inline=True)
     completedRaids = "This player haven't completed any raid yet." if len(dungeonandraidstats["raids"]) == 0 else ""
     embed.add_field(name=f'Raids', value=completedRaids, inline=False)
     for i in dungeonandraidstats["raids"]:

@@ -35,7 +35,7 @@ def parseDungeonRaidData(data, id=None):
         "raids": {}
     }
 
-    def iterate():
+    def iterate(character):
         for dungeon in data["characters"][character]["dungeons"]["list"]:
             try:
                 stats["dungeons"][dungeon["name"]] += dungeon["completed"]
@@ -48,10 +48,10 @@ def parseDungeonRaidData(data, id=None):
                 stats["raids"][raid["name"]] = raid["completed"]
 
     if id is not None:
-        iterate()
+        iterate(id)
     else:
         for character in data["characters"]:
-            iterate()
+            iterate(character)
         
 
     for i in lists.lbList:
