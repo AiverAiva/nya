@@ -1,0 +1,6 @@
+py-cord
+supabase
+requests
+python-dotenv
+easy-pil
+pyyaml

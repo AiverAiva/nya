@@ -8,24 +8,8 @@ from utilties.embeds import Error
 from dotenv import load_dotenv
 load_dotenv()
 
-devMode = os.getenv('DEVMODE') 
-token = os.getenv('TOKEN') 
+token: str = os.getenv('TOKEN')
 
-# flaskh app for continuous repl.it run
-if devMode != "TRUE":
-  from flask import Flask
-  app = Flask(__name__)
-  @app.route('/')
-  def hello():
-      return 'Your Bot Is Ready'
-
-  def run():
-    app.run(host="0.0.0.0", port=8000)
-     
-  if __name__ == '__main__':
-    server = Thread(target=run)
-    server.start()
-  
 # start of discord stuff
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="/", intents=intents)
@@ -38,7 +22,12 @@ async def on_ready():
 
 @bot.event
 async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
-    await ctx.respond(embed=Error(f"Command: `/{ctx.command}`\nError: `{error}`\n\n**__Please report this!__**\n**Service Server** https://discord.gg/kcHfpfnYzE\n**Contact Developer** @aiveraiva\n**Report Issues** https://github.com/AiverAiva/nya/issues/new/choose"))
+    await ctx.respond(embed=Error(f"Command: `/{ctx.command}`\nError: `{error}`\n\n**__Please report this!__**\n**Contact Developer** @aiveraiva\n**Report Issues** https://github.com/AiverAiva/nya/issues/new/choose"))
+
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
 
 @tasks.loop(seconds=10)
 async def change_status():
