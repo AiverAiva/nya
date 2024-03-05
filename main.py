@@ -6,6 +6,7 @@ from threading import Thread
 from utilties.multicog import apply_multicog
 from utilties.embeds import Error
 from dotenv import load_dotenv
+from database.check import checkUserLevelField
 load_dotenv()
 
 token: str = os.getenv('TOKEN')
@@ -28,6 +29,8 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
 async def on_message(message):
     if message.author.bot:
         return
+    if message.guild.id is not None:
+        checkUserLevelField(message.author, message.guild.id)
 
 @tasks.loop(seconds=10)
 async def change_status():
